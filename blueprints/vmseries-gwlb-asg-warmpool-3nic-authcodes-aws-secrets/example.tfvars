@@ -26,8 +26,8 @@ asg_max="1"
 asg_desired="1"
 asg_prepared_min="1"
 # terminate all instances in ASG prior to terraform destroy to cleanup panorama and CSP licensing for BYOL with the following commands
-# aws --profile pan-lab --region us-east-2 autoscaling put-warm-pool --auto-scaling-group-name PANW-GWLB-065b_byol_asg --min-size 0
-# aws --profile pan-lab --region us-east-2 autoscaling update-auto-scaling-group --auto-scaling-group-name PANW-GWLB-065b_byol_asg --min-size 0 --max-size 0 --desired-capacity 0 
+# aws --profile pan-lab --region us-east-2 autoscaling put-warm-pool --auto-scaling-group-name ASG-GROUP-NAME --min-size 0
+# aws --profile pan-lab --region us-east-2 autoscaling update-auto-scaling-group --auto-scaling-group-name ASG-GROUP-NAME --min-size 0 --max-size 0 --desired-capacity 0 
 
 # Existing AWS SSH Key Name
 key_name = "<existing-ssh-key-pair-name>
