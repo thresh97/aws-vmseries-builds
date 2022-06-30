@@ -1,0 +1,24 @@
+set deviceconfig system hostname panorama1 
+set deviceconfig system public-ip-address PANORAMA1_PUBLIC_IP
+
+set deviceconfig system update-schedule threats recurring every-30-mins action download-and-install
+set deviceconfig system update-schedule anti-virus recurring hourly action download-and-install
+set deviceconfig system update-schedule wildfire recurring every-min action download-and-install
+set deviceconfig system update-schedule threats recurring sync-to-peer yes
+set deviceconfig system update-schedule anti-virus recurring sync-to-peer yes
+
+set deviceconfig system deployment-update-schedule content-antivirus anti-virus recurring hourly at 0 action download-only 
+set deviceconfig system deployment-update-schedule content-antivirus download-source update-server 
+set deviceconfig system deployment-update-schedule content-apps-and-threats download-source update-server 
+set deviceconfig system deployment-update-schedule content-apps-and-threats app-and-threat recurring every-30-mins at 0 action download-only 
+set deviceconfig system deployment-update-schedule content-wildfire wildfire recurring every-min action download-only 
+set deviceconfig system deployment-update-schedule content-wildfire download-source update-server 
+set deviceconfig system deployment-update-schedule content-url url-database recurring daily at 00:00 action download-only 
+set deviceconfig system deployment-update-schedule content-url download-source update-server 
+
+set deviceconfig high-availability peer ip-address PANORAMA2_PUBLIC_IP
+set deviceconfig high-availability peer serial PANORAMA2_SERIAL
+set deviceconfig high-availability peer encryption enabled yes
+set deviceconfig high-availability enabled yes
+set deviceconfig high-availability election-option priority primary
+set deviceconfig high-availability election-option timers recommended 
