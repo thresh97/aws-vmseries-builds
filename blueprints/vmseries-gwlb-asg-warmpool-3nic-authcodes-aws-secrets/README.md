@@ -6,10 +6,10 @@ This blueprint builds an AWS Autoscaling Group with Warmpool of VM Series NGFW f
 
 # Infrastructure Components
 TGW
-  3 VPC Attachements
-  2 TGW Route Tables
-	Security
-	Inspection
+- 3 VPC Attachements
+- 2 TGW Route Tables
+-- Security
+-- Inspection
 VPC
   spoke1 (2 AZs)
 	subnets
