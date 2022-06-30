@@ -49,7 +49,7 @@ This blueprint builds an AWS Autoscaling Group with Warmpool of VM Series NGFW f
 - AWS Secrets
   - Panorama secrets
   - VM Series User Data
-- Lambda script for lifecycle hooks'
+- Lambda script for lifecycle hooks
 - EventBridge Rules to Launch Lambda
 - Lambda Permsission for EventBridge
 - IAM Policy for Lambda
