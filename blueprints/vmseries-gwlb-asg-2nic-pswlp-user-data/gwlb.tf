@@ -13,14 +13,14 @@ resource "aws_lb_target_group" "gwlb" {
   target_type = "instance"
   vpc_id      = aws_vpc.security.id
   deregistration_delay = 5
+
   health_check {
-    port = 8
+    port = 80
     protocol = "HTTP"
-    path = "/"
     timeout = 5
     interval = 10
     unhealthy_threshold = 3
-    matcher = "200-399"
+    matcher = 200-399
   }
 }
 
