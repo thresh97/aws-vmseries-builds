@@ -73,7 +73,7 @@ This blueprint builds an AWS Autoscaling Group with Warmpool of VM Series NGFW f
 # comments
 - zero out ASG instances before terraform destroy
 - make sure AWS account has EIP limit to support 4 (3 sec VPC NAT-GW, 1 spoke2 VM) + maximum ASG size
-- ELB health checks will eventually terminate instances if commit-all from Panorama fails.
+- ASG ELB health checks will eventually terminate instances if commit-all from Panorama fails.
 - Health check test both dataplane interfaces via SNAT/DNAT policy to TCP port 8 that redirects to metadata AWS web server
 - GWLB will not send traffic to any VM Series unless Health Check validates dataplane.  This should avoid blackholing traffic associated with management profile based health checks.
 - AWS Secrets reference in user-data of launch template allow for vm-auth-key, Panorama API, device registration PIN ID/Value to be rotated
