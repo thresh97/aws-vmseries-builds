@@ -60,12 +60,13 @@ This blueprint builds an AWS Autoscaling Group with Warmpool of VM Series NGFW f
   - Autoscaling Policy (Target Tracking)
 
 # parameters
-- PAN CSP Licensing Key
 - Panorama with public IP (can be A/P)
 - Panorama API key
 - Panorama vm-auth-key 
 - Device Certificate registration PIN ID and Value
 - Collector Group Name
+- Template Stack Name
+- Device Group Name
 - Authcode for VM Series with sufficient capacity to provision at least maximum size of ASG
 - public SSH key-pair name in AWS region that ASG will be deployed
 
