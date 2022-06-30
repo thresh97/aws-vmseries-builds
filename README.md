@@ -2,7 +2,7 @@
 
 
 ### Overview
-The purpose of this repo is to provide guidance on different VM-Series architectures in AWS how to deploy them using Terraform.  The [blueprints](https://github.com/thresh97/aws-vmseries-builds/tree/main/blueprints) directory contains a list of various architectures with complete build guides.  The blueprints use the Terraform modules listed in the [modules](https://github.com/wwce/aws-vmseries-builds/tree/main/modules) directory. 
+The purpose of this repo is to provide guidance on different VM-Series architectures in AWS how to deploy them using Terraform.  The [blueprints](https://github.com/thresh97/aws-vmseries-builds/tree/main/blueprints) directory contains a list of various architectures with complete build guides.  The blueprints use the Terraform modules listed in the [modules](https://github.com/thresh97/aws-vmseries-builds/tree/main/modules) directory. 
 
 
 ## Support Policy
