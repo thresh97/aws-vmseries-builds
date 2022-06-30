@@ -2,7 +2,7 @@
 
 
 ### Overview
-This blueprint builds an AWS Autoscaling Group with Warmpool of VM Series NGFW firewalls integrated with a GWLB.  This is a greenfield deployment that is similar to the PAN VM Series Centralized AWS GWLB Reference Architecture with Centralized Egress and E/W Inspection via TGW and Distributed Ingress inspection
+This blueprint builds an AWS Autoscaling Group with Warmpool of VM Series NGFW firewalls integrated with a GWLB.  This is a greenfield deployment that is similar to the PAN VM Series Centralized AWS GWLB Reference Architecture with Centralized Egress and E/W Inspection via TGW and Distributed Ingress inspection.  It uses AWS Secrets for Basic instance meta-data based bootstrapping.  It also uses two dataplane interfaces with the optional overlay routing functionality of the GWLB VM series integration.
 
 # Infrastructure Components
 - TGW
@@ -71,6 +71,7 @@ This blueprint builds an AWS Autoscaling Group with Warmpool of VM Series NGFW f
 - public SSH key-pair name in AWS region that ASG will be deployed
 
 # comments
+- see the scripts/ directory for panorama configuration and commands
 - zero out ASG instances before terraform destroy
 - destroy will take at least 20 minutes must wait on Lambda ENIs to disappear
 - make sure AWS account has EIP limit to support 4 (3 sec VPC NAT-GW, 1 spoke2 VM) + maximum ASG size
