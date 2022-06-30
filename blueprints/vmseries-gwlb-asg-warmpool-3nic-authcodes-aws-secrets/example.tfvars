@@ -78,7 +78,6 @@ aws_secret_name_vmseries_asg = "vmseries_secret_for_user_data"
 aws_secret_name_panorama = "panorama_secret_for_lambda"
 
 # VM Series firewall user data information
-# Panorama must be 10.2.x for Content Auto Push to Bootstapping firewall
 # Panorama needs to be publicly available via NAT-GW on TCP ports 3978 (Panorama Management), 28443 (Content Auto-Push) 
 # and TCP 443 for Lambda connectivity to Panorama API
 # Private connectivity to Panorama could be used if deployment was modified/extended to use existing privately connected resources (existing TGW and VPN/DX).
