@@ -72,6 +72,7 @@ This blueprint builds an AWS Autoscaling Group with Warmpool of VM Series NGFW f
 
 # comments
 - zero out ASG instances before terraform destroy
+- destroy will take at least 20 minutes must wait on Lambda ENIs to disappear
 - make sure AWS account has EIP limit to support 4 (3 sec VPC NAT-GW, 1 spoke2 VM) + maximum ASG size
 - ASG ELB health checks will eventually terminate instances if commit-all from Panorama fails.
 - Health check test both dataplane interfaces via SNAT/DNAT policy to TCP port 8 that redirects to metadata AWS web server
