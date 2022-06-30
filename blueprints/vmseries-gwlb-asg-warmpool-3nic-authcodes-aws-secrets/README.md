@@ -71,22 +71,22 @@ This blueprint builds an AWS Autoscaling Group with Warmpool of VM Series NGFW f
 
 # comments
 - lifecycle lambda function does the following:
- - cold launch (EC2 to Warmpool or EC2 to Autoscaling Group)
-  - add second dataplane NIC with EIP
-  - monitor bootstrap of VM Series via CloudWatch Group
-  - find active panorama
-  - tag instance with license type and serial number
-  - push content and av
-  - push template stack and device group
- - warm launch (Warmpool to Autoscaling Group)
-  - find active panorama
-  - if needed, push content and/or av
-  - if needed, push DG and TS
- - terminate (Autoscaling or Warmpool to EC2)
-  - remove device from panorama
-  - deactivate license by serial
- - terminate for reuse (Autoscaling to Warmpool)
-  - no-op
+  - cold launch (EC2 to Warmpool or EC2 to Autoscaling Group)
+    - add second dataplane NIC with EIP
+    - monitor bootstrap of VM Series via CloudWatch Group
+    - find active panorama
+    - tag instance with license type and serial number
+    - push content and av
+    - push template stack and device group
+  - warm launch (Warmpool to Autoscaling Group)
+    - find active panorama
+    - if needed, push content and/or av
+    - if needed, push DG and TS
+  - terminate (Autoscaling or Warmpool to EC2)
+    - remove device from panorama
+    - deactivate license by serial
+  - terminate for reuse (Autoscaling to Warmpool)
+    - no-op
 - hostnames in Panorama are the AWS instance IDs.  This is accomplished by using resource based naming in the launch template and using dhcp-accept-server-hostname=yes in user data.
 - the lifecycle lambda function does not interact directly with API on VM series.  It only uses python3 boto3 to AWS and PAN-OS XML to Panorama.
 - this deployment utilizes basic bootstrapping.  No S3 buckets.  No bootstrap.xml.  No init-cfg.txt
