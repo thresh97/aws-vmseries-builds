@@ -1,0 +1,118 @@
+set shared address net_10.0.0.0_8 ip-netmask 10.0.0.0/8
+set shared address net_10.0.0.0_8 disable-override no
+set shared address net_172.16.0.0_12 ip-netmask 172.16.0.0/12
+set shared address net_172.16.0.0_12 disable-override no
+set shared address net_192.168.0.0_16 ip-netmask 192.168.0.0/16
+set shared address net_192.168.0.0_16 disable-override no
+
+set shared address-group AG_RFC1918 static [ net_10.0.0.0_8 net_172.16.0.0_12 net_192.168.0.0_16 ]
+set shared address-group AG_RFC1918 disable-override no
+
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" target negate no
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" to any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" from any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" source AG_RFC1918
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" destination [ panw-bulletproof-ip-list panw-highrisk-ip-list panw-known-ip-list panw-torexit-ip-list ]
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" source-user any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" category any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" application any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" service any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" source-hip any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" destination-hip any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" action deny
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" rule-type intrazone
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" log-setting default
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound EDL" negate-destination no
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" target negate no
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" to any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" from any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" source AG_RFC1918
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" destination [ CN IR KP RU ]
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" source-user any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" category any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" application any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" service any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" source-hip any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" destination-hip any
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" action deny
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" rule-type intrazone
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" log-setting default
+set device-group DG_GWLB-demo pre-rulebase security rules "Outbound Geo" negate-destination no
+set device-group DG_GWLB-demo post-rulebase default-security-rules rules intrazone-default action deny
+set device-group DG_GWLB-demo post-rulebase default-security-rules rules intrazone-default log-start yes
+set device-group DG_GWLB-demo post-rulebase default-security-rules rules intrazone-default log-end no
+set device-group DG_GWLB-demo post-rulebase default-security-rules rules intrazone-default log-setting default
+set device-group DG_GWLB-demo post-rulebase security rules Internal target negate no
+set device-group DG_GWLB-demo post-rulebase security rules Internal to any
+set device-group DG_GWLB-demo post-rulebase security rules Internal from any
+set device-group DG_GWLB-demo post-rulebase security rules Internal source AG_RFC1918
+set device-group DG_GWLB-demo post-rulebase security rules Internal destination AG_RFC1918
+set device-group DG_GWLB-demo post-rulebase security rules Internal source-user any
+set device-group DG_GWLB-demo post-rulebase security rules Internal category any
+set device-group DG_GWLB-demo post-rulebase security rules Internal application any
+set device-group DG_GWLB-demo post-rulebase security rules Internal service any
+set device-group DG_GWLB-demo post-rulebase security rules Internal source-hip any
+set device-group DG_GWLB-demo post-rulebase security rules Internal destination-hip any
+set device-group DG_GWLB-demo post-rulebase security rules Internal action allow
+set device-group DG_GWLB-demo post-rulebase security rules Internal rule-type intrazone
+set device-group DG_GWLB-demo post-rulebase security rules Internal log-setting default
+set device-group DG_GWLB-demo post-rulebase security rules Internal profile-setting profiles virus default
+set device-group DG_GWLB-demo post-rulebase security rules Internal profile-setting profiles spyware default
+set device-group DG_GWLB-demo post-rulebase security rules Internal profile-setting profiles vulnerability default
+set device-group DG_GWLB-demo post-rulebase security rules Internal profile-setting profiles wildfire-analysis default
+set device-group DG_GWLB-demo post-rulebase security rules Outbound target negate no
+set device-group DG_GWLB-demo post-rulebase security rules Outbound to any
+set device-group DG_GWLB-demo post-rulebase security rules Outbound from any
+set device-group DG_GWLB-demo post-rulebase security rules Outbound source AG_RFC1918
+set device-group DG_GWLB-demo post-rulebase security rules Outbound destination AG_RFC1918
+set device-group DG_GWLB-demo post-rulebase security rules Outbound source-user any
+set device-group DG_GWLB-demo post-rulebase security rules Outbound category any
+set device-group DG_GWLB-demo post-rulebase security rules Outbound application any
+set device-group DG_GWLB-demo post-rulebase security rules Outbound service any
+set device-group DG_GWLB-demo post-rulebase security rules Outbound source-hip any
+set device-group DG_GWLB-demo post-rulebase security rules Outbound destination-hip any
+set device-group DG_GWLB-demo post-rulebase security rules Outbound action allow
+set device-group DG_GWLB-demo post-rulebase security rules Outbound rule-type intrazone
+set device-group DG_GWLB-demo post-rulebase security rules Outbound log-setting default
+set device-group DG_GWLB-demo post-rulebase security rules Outbound negate-destination yes
+set device-group DG_GWLB-demo post-rulebase security rules Outbound profile-setting profiles url-filtering default
+set device-group DG_GWLB-demo post-rulebase security rules Outbound profile-setting profiles virus default
+set device-group DG_GWLB-demo post-rulebase security rules Outbound profile-setting profiles spyware default
+set device-group DG_GWLB-demo post-rulebase security rules Outbound profile-setting profiles vulnerability default
+set device-group DG_GWLB-demo post-rulebase security rules Outbound profile-setting profiles wildfire-analysis default
+set device-group DG_GWLB-demo log-settings profiles 
+
+set template T_Common settings default-vsys vsys1
+set template T_Common config  vsys vsys1 
+set template T_Common config  deviceconfig system update-schedule anti-virus recurring hourly at 0
+set template T_Common config  deviceconfig system update-schedule threats recurring every-30-mins at 0
+set template T_Common config  deviceconfig system update-schedule threats recurring every-30-mins action download-and-install
+set template T_Common config  deviceconfig system update-schedule wildfire recurring real-time 
+set template T_Common config  deviceconfig system timezone US/Central
+
+set template T_test settings default-vsys vsys1
+set template T_test config  vsys vsys1 zone pan-data-zone network layer3 ethernet1/1
+set template T_test config  vsys vsys1 import network interface ethernet1/1
+set template T_test config  network profiles interface-management-profile pan-fw-gwlb-profile permitted-ip 
+set template T_test config  network profiles interface-management-profile pan-fw-gwlb-profile http yes
+set template T_test config  network interface ethernet ethernet1/1 layer3 ipv6 neighbor-discovery router-advertisement enable no
+set template T_test config  network interface ethernet ethernet1/1 layer3 ndp-proxy enabled no
+set template T_test config  network interface ethernet ethernet1/1 layer3 lldp enable no
+set template T_test config  network interface ethernet ethernet1/1 layer3 dhcp-client 
+set template T_test config  network interface ethernet ethernet1/1 layer3 interface-management-profile pan-fw-gwlb-profile
+set template T_test config  network virtual-router pan-fw-vr ecmp algorithm ip-modulo 
+set template T_test config  network virtual-router pan-fw-vr ecmp enable yes
+set template T_test config  network virtual-router pan-fw-vr protocol bgp routing-options graceful-restart enable yes
+set template T_test config  network virtual-router pan-fw-vr protocol bgp enable no
+set template T_test config  network virtual-router pan-fw-vr protocol rip enable no
+set template T_test config  network virtual-router pan-fw-vr protocol ospf enable no
+set template T_test config  network virtual-router pan-fw-vr protocol ospfv3 enable no
+set template T_test config  network virtual-router pan-fw-vr interface ethernet1/1
+set template T_test config  deviceconfig plugins vm_series aws-cloudwatch enabled yes
+set template T_test config  deviceconfig plugins vm_series aws-cloudwatch timeout 1
+set template T_test config  deviceconfig plugins vm_series aws-cloudwatch name VMseriesGWLB
+
+set template-stack TS_GWLB-demo user-group-source 
+set template-stack TS_GWLB-demo templates [ T_test T_Common ]
+set template-stack TS_GWLB-demo settings default-vsys vsys1
+set template-stack TS_GWLB-demo auto-push-on-1st-conn yes

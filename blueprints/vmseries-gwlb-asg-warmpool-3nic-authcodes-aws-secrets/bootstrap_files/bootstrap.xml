@@ -1,0 +1,962 @@
+<?xml version="1.0"?>
+<config version="10.0.0" urldb="paloaltonetworks">
+  <devices>
+    <entry name="localhost.localdomain">
+      <network>
+        <virtual-router>
+          <entry name="aws-vr">
+            <ecmp>
+              <algorithm>
+                <ip-modulo/>
+              </algorithm>
+              <enable>yes</enable>
+            </ecmp>
+            <protocol>
+              <bgp>
+                <routing-options>
+                  <graceful-restart>
+                    <enable>yes</enable>
+                  </graceful-restart>
+                </routing-options>
+                <enable>no</enable>
+              </bgp>
+              <rip>
+                <enable>no</enable>
+              </rip>
+              <ospf>
+                <enable>no</enable>
+              </ospf>
+              <ospfv3>
+                <enable>no</enable>
+              </ospfv3>
+            </protocol>
+            <interface>
+              <member>ethernet1/1</member>
+              <member>ethernet1/2</member>
+            </interface>
+            <routing-table>
+              <ip>
+                <static-route>
+                  <entry name="az1-rfc-A">
+                    <path-monitor>
+                      <monitor-destinations>
+                        <entry name="monitor">
+                          <enable>yes</enable>
+                          <source>DHCP</source>
+                          <destination>10.0.1.1</destination>
+                          <interval>3</interval>
+                          <count>5</count>
+                        </entry>
+                      </monitor-destinations>
+                      <enable>yes</enable>
+                      <failure-condition>any</failure-condition>
+                      <hold-time>2</hold-time>
+                    </path-monitor>
+                    <nexthop>
+                      <ip-address>10.0.1.1</ip-address>
+                    </nexthop>
+                    <bfd>
+                      <profile>None</profile>
+                    </bfd>
+                    <interface>ethernet1/1</interface>
+                    <metric>10</metric>
+                    <destination>10.0.0.0/8</destination>
+                    <route-table>
+                      <unicast/>
+                    </route-table>
+                  </entry>
+                  <entry name="az1-rfc-B">
+                    <path-monitor>
+                      <monitor-destinations>
+                        <entry name="monitor">
+                          <enable>yes</enable>
+                          <source>DHCP</source>
+                          <destination>10.0.1.1</destination>
+                          <interval>3</interval>
+                          <count>5</count>
+                        </entry>
+                      </monitor-destinations>
+                      <enable>yes</enable>
+                      <failure-condition>any</failure-condition>
+                      <hold-time>2</hold-time>
+                    </path-monitor>
+                    <nexthop>
+                      <ip-address>10.0.1.1</ip-address>
+                    </nexthop>
+                    <bfd>
+                      <profile>None</profile>
+                    </bfd>
+                    <interface>ethernet1/1</interface>
+                    <metric>10</metric>
+                    <destination>172.16.0.0/12</destination>
+                    <route-table>
+                      <unicast/>
+                    </route-table>
+                  </entry>
+                  <entry name="az1-rfc-C">
+                    <path-monitor>
+                      <monitor-destinations>
+                        <entry name="monitor">
+                          <enable>yes</enable>
+                          <source>DHCP</source>
+                          <destination>10.0.1.1</destination>
+                          <interval>3</interval>
+                          <count>5</count>
+                        </entry>
+                      </monitor-destinations>
+                      <enable>yes</enable>
+                      <failure-condition>any</failure-condition>
+                      <hold-time>2</hold-time>
+                    </path-monitor>
+                    <nexthop>
+                      <ip-address>10.0.1.1</ip-address>
+                    </nexthop>
+                    <bfd>
+                      <profile>None</profile>
+                    </bfd>
+                    <interface>ethernet1/1</interface>
+                    <metric>10</metric>
+                    <destination>192.168.0.0/16</destination>
+                    <route-table>
+                      <unicast/>
+                    </route-table>
+                  </entry>
+                  <entry name="az2-rfc-A">
+                    <path-monitor>
+                      <monitor-destinations>
+                        <entry name="monitor">
+                          <enable>yes</enable>
+                          <source>DHCP</source>
+                          <destination>10.0.1.17</destination>
+                          <interval>3</interval>
+                          <count>5</count>
+                        </entry>
+                      </monitor-destinations>
+                      <enable>yes</enable>
+                      <failure-condition>any</failure-condition>
+                      <hold-time>2</hold-time>
+                    </path-monitor>
+                    <nexthop>
+                      <ip-address>10.0.1.17</ip-address>
+                    </nexthop>
+                    <bfd>
+                      <profile>None</profile>
+                    </bfd>
+                    <interface>ethernet1/1</interface>
+                    <metric>11</metric>
+                    <destination>10.0.0.0/8</destination>
+                    <route-table>
+                      <unicast/>
+                    </route-table>
+                  </entry>
+                  <entry name="az2-rfc-B">
+                    <path-monitor>
+                      <monitor-destinations>
+                        <entry name="monitor">
+                          <enable>yes</enable>
+                          <source>DHCP</source>
+                          <destination>10.0.1.17</destination>
+                          <interval>3</interval>
+                          <count>5</count>
+                        </entry>
+                      </monitor-destinations>
+                      <enable>yes</enable>
+                      <failure-condition>any</failure-condition>
+                      <hold-time>2</hold-time>
+                    </path-monitor>
+                    <nexthop>
+                      <ip-address>10.0.1.17</ip-address>
+                    </nexthop>
+                    <bfd>
+                      <profile>None</profile>
+                    </bfd>
+                    <interface>ethernet1/1</interface>
+                    <metric>11</metric>
+                    <destination>172.16.0.0/12</destination>
+                    <route-table>
+                      <unicast/>
+                    </route-table>
+                  </entry>
+                  <entry name="az2-rfc-C">
+                    <path-monitor>
+                      <monitor-destinations>
+                        <entry name="monitor">
+                          <enable>yes</enable>
+                          <source>DHCP</source>
+                          <destination>10.0.1.17</destination>
+                          <interval>3</interval>
+                          <count>5</count>
+                        </entry>
+                      </monitor-destinations>
+                      <enable>yes</enable>
+                      <failure-condition>any</failure-condition>
+                      <hold-time>2</hold-time>
+                    </path-monitor>
+                    <nexthop>
+                      <ip-address>10.0.1.17</ip-address>
+                    </nexthop>
+                    <bfd>
+                      <profile>None</profile>
+                    </bfd>
+                    <interface>ethernet1/1</interface>
+                    <metric>11</metric>
+                    <destination>192.168.0.0/16</destination>
+                    <route-table>
+                      <unicast/>
+                    </route-table>
+                  </entry>
+                </static-route>
+              </ip>
+            </routing-table>
+          </entry>
+          <entry name="default">
+            <protocol>
+              <bgp>
+                <enable>no</enable>
+                <dampening-profile>
+                  <entry name="default">
+                    <cutoff>1.25</cutoff>
+                    <reuse>0.5</reuse>
+                    <max-hold-time>900</max-hold-time>
+                    <decay-half-life-reachable>300</decay-half-life-reachable>
+                    <decay-half-life-unreachable>900</decay-half-life-unreachable>
+                    <enable>yes</enable>
+                  </entry>
+                </dampening-profile>
+              </bgp>
+            </protocol>
+          </entry>
+        </virtual-router>
+        <profiles>
+          <interface-management-profile>
+            <entry name="probe">
+              <http>yes</http>
+              <https>yes</https>
+              <ssh>yes</ssh>
+            </entry>
+          </interface-management-profile>
+          <monitor-profile>
+            <entry name="default">
+              <interval>3</interval>
+              <threshold>5</threshold>
+              <action>wait-recover</action>
+            </entry>
+          </monitor-profile>
+        </profiles>
+        <interface>
+          <ethernet>
+            <entry name="ethernet1/1">
+              <layer3>
+                <ndp-proxy>
+                  <enabled>no</enabled>
+                </ndp-proxy>
+                <sdwan-link-settings>
+                  <upstream-nat>
+                    <enable>no</enable>
+                    <static-ip/>
+                  </upstream-nat>
+                  <enable>no</enable>
+                </sdwan-link-settings>
+                <interface-management-profile>probe</interface-management-profile>
+                <lldp>
+                  <enable>no</enable>
+                </lldp>
+                <dhcp-client>
+                  <create-default-route>no</create-default-route>
+                </dhcp-client>
+              </layer3>
+            </entry>
+            <entry name="ethernet1/2">
+              <layer3>
+                <ndp-proxy>
+                  <enabled>no</enabled>
+                </ndp-proxy>
+                <sdwan-link-settings>
+                  <upstream-nat>
+                    <enable>no</enable>
+                    <static-ip/>
+                  </upstream-nat>
+                  <enable>no</enable>
+                </sdwan-link-settings>
+                <lldp>
+                  <enable>no</enable>
+                </lldp>
+                <dhcp-client/>
+              </layer3>
+            </entry>
+          </ethernet>
+        </interface>
+        <ike>
+          <crypto-profiles>
+            <ike-crypto-profiles>
+              <entry name="default">
+                <encryption>
+                  <member>aes-128-cbc</member>
+                  <member>3des</member>
+                </encryption>
+                <hash>
+                  <member>sha1</member>
+                </hash>
+                <dh-group>
+                  <member>group2</member>
+                </dh-group>
+                <lifetime>
+                  <hours>8</hours>
+                </lifetime>
+              </entry>
+              <entry name="Suite-B-GCM-128">
+                <encryption>
+                  <member>aes-128-cbc</member>
+                </encryption>
+                <hash>
+                  <member>sha256</member>
+                </hash>
+                <dh-group>
+                  <member>group19</member>
+                </dh-group>
+                <lifetime>
+                  <hours>8</hours>
+                </lifetime>
+              </entry>
+              <entry name="Suite-B-GCM-256">
+                <encryption>
+                  <member>aes-256-cbc</member>
+                </encryption>
+                <hash>
+                  <member>sha384</member>
+                </hash>
+                <dh-group>
+                  <member>group20</member>
+                </dh-group>
+                <lifetime>
+                  <hours>8</hours>
+                </lifetime>
+              </entry>
+            </ike-crypto-profiles>
+            <ipsec-crypto-profiles>
+              <entry name="default">
+                <esp>
+                  <encryption>
+                    <member>aes-128-cbc</member>
+                    <member>3des</member>
+                  </encryption>
+                  <authentication>
+                    <member>sha1</member>
+                  </authentication>
+                </esp>
+                <dh-group>group2</dh-group>
+                <lifetime>
+                  <hours>1</hours>
+                </lifetime>
+              </entry>
+              <entry name="Suite-B-GCM-128">
+                <esp>
+                  <encryption>
+                    <member>aes-128-gcm</member>
+                  </encryption>
+                  <authentication>
+                    <member>none</member>
+                  </authentication>
+                </esp>
+                <dh-group>group19</dh-group>
+                <lifetime>
+                  <hours>1</hours>
+                </lifetime>
+              </entry>
+              <entry name="Suite-B-GCM-256">
+                <esp>
+                  <encryption>
+                    <member>aes-256-gcm</member>
+                  </encryption>
+                  <authentication>
+                    <member>none</member>
+                  </authentication>
+                </esp>
+                <dh-group>group20</dh-group>
+                <lifetime>
+                  <hours>1</hours>
+                </lifetime>
+              </entry>
+            </ipsec-crypto-profiles>
+            <global-protect-app-crypto-profiles>
+              <entry name="default">
+                <encryption>
+                  <member>aes-128-cbc</member>
+                </encryption>
+                <authentication>
+                  <member>sha1</member>
+                </authentication>
+              </entry>
+            </global-protect-app-crypto-profiles>
+          </crypto-profiles>
+        </ike>
+        <qos>
+          <profile>
+            <entry name="default">
+              <class-bandwidth-type>
+                <mbps>
+                  <class>
+                    <entry name="class1">
+                      <priority>real-time</priority>
+                    </entry>
+                    <entry name="class2">
+                      <priority>high</priority>
+                    </entry>
+                    <entry name="class3">
+                      <priority>high</priority>
+                    </entry>
+                    <entry name="class4">
+                      <priority>medium</priority>
+                    </entry>
+                    <entry name="class5">
+                      <priority>medium</priority>
+                    </entry>
+                    <entry name="class6">
+                      <priority>low</priority>
+                    </entry>
+                    <entry name="class7">
+                      <priority>low</priority>
+                    </entry>
+                    <entry name="class8">
+                      <priority>low</priority>
+                    </entry>
+                  </class>
+                </mbps>
+              </class-bandwidth-type>
+            </entry>
+          </profile>
+        </qos>
+      </network>
+      <vsys>
+        <entry name="vsys1">
+          <zone>
+            <entry name="trust">
+              <network>
+                <layer3>
+                  <member>ethernet1/1</member>
+                </layer3>
+                <log-setting>default</log-setting>
+              </network>
+            </entry>
+            <entry name="untrust">
+              <network>
+                <layer3>
+                  <member>ethernet1/2</member>
+                </layer3>
+                <log-setting>default</log-setting>
+              </network>
+            </entry>
+          </zone>
+          <import>
+            <network>
+              <interface>
+                <member>ethernet1/1</member>
+                <member>ethernet1/2</member>
+              </interface>
+            </network>
+          </import>
+          <application/>
+          <application-group/>
+          <service>
+            <entry name="tcp-22">
+              <protocol>
+                <tcp>
+                  <port>22</port>
+                  <override>
+                    <no/>
+                  </override>
+                </tcp>
+              </protocol>
+            </entry>
+          </service>
+          <service-group/>
+          <schedule/>
+          <rulebase>
+            <security>
+              <rules>
+                <entry name="gwlb-probe" uuid="70231416-5288-44b8-b2ac-5c384eea533b">
+                  <to loc="aws-gwlb">
+                    <member loc="aws-gwlb">trust</member>
+                  </to>
+                  <from loc="aws-gwlb">
+                    <member loc="aws-gwlb">trust</member>
+                  </from>
+                  <source loc="aws-gwlb">
+                    <member loc="aws-gwlb">gwlbe</member>
+                  </source>
+                  <destination loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </destination>
+                  <source-user loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </source-user>
+                  <category loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </category>
+                  <application loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </application>
+                  <service loc="aws-gwlb">
+                    <member loc="aws-gwlb">service-http</member>
+                  </service>
+                  <source-hip loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </source-hip>
+                  <destination-hip loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </destination-hip>
+                  <action loc="aws-gwlb">allow</action>
+                  <log-setting loc="aws-gwlb">default</log-setting>
+                </entry>
+                <entry name="east-west" uuid="580f6ea6-01c8-4f04-82ac-f911861fdf30">
+                  <to loc="aws-gwlb">
+                    <member loc="aws-gwlb">trust</member>
+                  </to>
+                  <from loc="aws-gwlb">
+                    <member loc="aws-gwlb">trust</member>
+                  </from>
+                  <source loc="aws-gwlb">
+                    <member loc="aws-gwlb">spoke1-vpc</member>
+                  </source>
+                  <destination loc="aws-gwlb">
+                    <member loc="aws-gwlb">spoke2-vpc</member>
+                  </destination>
+                  <source-user loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </source-user>
+                  <category loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </category>
+                  <application loc="aws-gwlb">
+                    <member loc="aws-gwlb">ping</member>
+                    <member loc="aws-gwlb">ssh</member>
+                    <member loc="aws-gwlb">web-browsing</member>
+                  </application>
+                  <service loc="aws-gwlb">
+                    <member loc="aws-gwlb">application-default</member>
+                  </service>
+                  <source-hip loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </source-hip>
+                  <destination-hip loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </destination-hip>
+                  <action loc="aws-gwlb">allow</action>
+                  <log-setting loc="aws-gwlb">default</log-setting>
+                </entry>
+                <entry name="outbound" uuid="8b0f657f-3bd9-47b5-abff-6c73fbb665d6">
+                  <to loc="aws-gwlb">
+                    <member loc="aws-gwlb">untrust</member>
+                  </to>
+                  <from loc="aws-gwlb">
+                    <member loc="aws-gwlb">trust</member>
+                  </from>
+                  <source loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </source>
+                  <destination loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </destination>
+                  <source-user loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </source-user>
+                  <category loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </category>
+                  <application loc="aws-gwlb">
+                    <member loc="aws-gwlb">apt-get</member>
+                    <member loc="aws-gwlb">dns</member>
+                    <member loc="aws-gwlb">ntp</member>
+                    <member loc="aws-gwlb">ping</member>
+                    <member loc="aws-gwlb">ssl</member>
+                    <member loc="aws-gwlb">web-browsing</member>
+                  </application>
+                  <service loc="aws-gwlb">
+                    <member loc="aws-gwlb">application-default</member>
+                  </service>
+                  <source-hip loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </source-hip>
+                  <destination-hip loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </destination-hip>
+                  <action loc="aws-gwlb">allow</action>
+                  <log-setting loc="aws-gwlb">default</log-setting>
+                </entry>
+                <entry name="inbound-web" uuid="df9198f3-f11d-4250-bb13-537ed3484d24">
+                  <to loc="aws-gwlb">
+                    <member loc="aws-gwlb">trust</member>
+                  </to>
+                  <from loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </from>
+                  <source loc="aws-gwlb">
+                    <member loc="aws-gwlb">world</member>
+                  </source>
+                  <destination loc="aws-gwlb">
+                    <member loc="aws-gwlb">spoke1-vpc</member>
+                  </destination>
+                  <source-user loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </source-user>
+                  <category loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </category>
+                  <application loc="aws-gwlb">
+                    <member loc="aws-gwlb">web-browsing</member>
+                  </application>
+                  <service loc="aws-gwlb">
+                    <member loc="aws-gwlb">application-default</member>
+                  </service>
+                  <source-hip loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </source-hip>
+                  <destination-hip loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </destination-hip>
+                  <action loc="aws-gwlb">allow</action>
+                  <log-setting loc="aws-gwlb">default</log-setting>
+                </entry>
+              </rules>
+            </security>
+            <default-security-rules>
+              <rules>
+                <entry name="intrazone-default" uuid="b5e29a4e-aff5-45d6-8ba2-9bed1f2d20f2">
+                  <action>deny</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                  <log-setting>default</log-setting>
+                </entry>
+                <entry name="interzone-default" uuid="d692944a-2874-457d-8ce2-a488d718bcff">
+                  <action>deny</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                  <log-setting>default</log-setting>
+                </entry>
+              </rules>
+            </default-security-rules>
+            <application-override>
+              <rules/>
+            </application-override>
+            <decryption>
+              <rules/>
+            </decryption>
+            <tunnel-inspect>
+              <rules/>
+            </tunnel-inspect>
+            <authentication>
+              <rules/>
+            </authentication>
+            <nat>
+              <rules>
+                <entry name="outbound" uuid="4ebb404d-ce66-40cc-8ff3-d1cb9cef194e">
+                  <source-translation loc="aws-gwlb">
+                    <dynamic-ip-and-port loc="aws-gwlb">
+                      <interface-address loc="aws-gwlb">
+                        <interface loc="aws-gwlb">ethernet1/2</interface>
+                      </interface-address>
+                    </dynamic-ip-and-port>
+                  </source-translation>
+                  <to loc="aws-gwlb">
+                    <member loc="aws-gwlb">untrust</member>
+                  </to>
+                  <from loc="aws-gwlb">
+                    <member loc="aws-gwlb">trust</member>
+                  </from>
+                  <source loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </source>
+                  <destination loc="aws-gwlb">
+                    <member loc="aws-gwlb">any</member>
+                  </destination>
+                  <service loc="aws-gwlb">any</service>
+                </entry>
+              </rules>
+            </nat>
+            <qos>
+              <rules/>
+            </qos>
+            <pbf>
+              <rules/>
+            </pbf>
+            <sdwan>
+              <rules/>
+            </sdwan>
+            <dos>
+              <rules/>
+            </dos>
+          </rulebase>
+          <address>
+            <entry name="spoke1-vpc" loc="aws-gwlb">
+              <ip-netmask loc="aws-gwlb">10.1.0.0/16</ip-netmask>
+              <tag loc="aws-gwlb">
+                <member loc="aws-gwlb">aws-ip</member>
+              </tag>
+            </entry>
+            <entry name="spoke2-vpc" loc="aws-gwlb">
+              <ip-netmask loc="aws-gwlb">10.2.0.0/16</ip-netmask>
+              <tag loc="aws-gwlb">
+                <member loc="aws-gwlb">aws-ip</member>
+              </tag>
+            </entry>
+            <entry name="gwlbe" loc="aws-gwlb">
+              <ip-netmask loc="aws-gwlb">10.0.3.0/24</ip-netmask>
+              <tag loc="aws-gwlb">
+                <member loc="aws-gwlb">aws-ip</member>
+              </tag>
+            </entry>
+            <entry name="world" loc="aws-gwlb">
+              <ip-netmask loc="aws-gwlb">0.0.0.0/0</ip-netmask>
+              <tag loc="aws-gwlb">
+                <member loc="aws-gwlb">untrust</member>
+              </tag>
+            </entry>
+          </address>
+          <address-group/>
+          <external-list/>
+          <region/>
+          <application-tag/>
+          <application-filter/>
+          <profile-group/>
+          <authentication-object/>
+          <device-object/>
+          <dynamic-user-group/>
+          <tag>
+            <entry name="untrust">
+              <color>color1</color>
+            </entry>
+            <entry name="trust">
+              <color>color13</color>
+            </entry>
+            <entry name="aws-ip">
+              <color>color25</color>
+            </entry>
+          </tag>
+          <application-status/>
+          <threats>
+            <vulnerability/>
+            <spyware/>
+          </threats>
+          <profiles>
+            <virus/>
+            <spyware/>
+            <vulnerability/>
+            <url-filtering/>
+            <custom-url-category/>
+            <file-blocking/>
+            <data-filtering/>
+            <data-objects/>
+            <hip-objects/>
+            <hip-profiles/>
+            <dos-protection/>
+            <decryption/>
+            <wildfire-analysis/>
+            <gtp/>
+          </profiles>
+        </entry>
+      </vsys>
+      <deviceconfig>
+        <system>
+          <type>
+            <dhcp-client>
+              <send-hostname>yes</send-hostname>
+              <send-client-id>no</send-client-id>
+              <accept-dhcp-hostname>yes</accept-dhcp-hostname>
+              <accept-dhcp-domain>no</accept-dhcp-domain>
+            </dhcp-client>
+          </type>
+          <update-server>updates.paloaltonetworks.com</update-server>
+          <update-schedule>
+            <threats>
+              <recurring>
+                <weekly>
+                  <day-of-week>wednesday</day-of-week>
+                  <at>01:02</at>
+                  <action>download-only</action>
+                </weekly>
+              </recurring>
+            </threats>
+          </update-schedule>
+          <timezone>US/Pacific</timezone>
+          <service>
+            <disable-telnet>yes</disable-telnet>
+            <disable-http>yes</disable-http>
+          </service>
+          <panorama>
+            <local-panorama/>
+          </panorama>
+          <dns-setting>
+            <servers>
+              <primary>8.8.8.8</primary>
+              <secondary>4.2.2.2</secondary>
+            </servers>
+          </dns-setting>
+          <hostname>PA-VM</hostname>
+        </system>
+        <setting>
+          <config>
+            <rematch>yes</rematch>
+          </config>
+          <management>
+            <hostname-type-in-syslog>FQDN</hostname-type-in-syslog>
+            <initcfg>
+              <public-key>c3NoLXJzYSBBQUFBQjNOemFDMXljMkVBQUFBREFRQUJBQUFCQVFDcG9tWXUwNjNjQ2ViamNpd2R3czRyNjluUWNDcXoyQkkvMHR4WjA4RElzQkw3WFNqUmlSRCtvU3pDN1E4bTFOZ1dFcTN5ajRJTlI4Sm01WnZjcDJpRmVCbWdXTmZWc2hFQ1FwU2lMTmJXMFE5L05NRkNiZG9WandRUFhhRmhHTFQ1M2RiR3BzUFc4bE44NnRJam01cCsrYlR5T2tuUzFSUlJMWnNoYjZpSXRxbXZoRVdNRnZ4NG1CdnVxTHVqSHRaN1JhSksveTAxUkxGMXZCRE1aN01mbnVObGgwVXM1cTIwT2k0NjlLNzBrbi81bnF4YzZIWGpPRnRiYUZtUnhwK0FXbGs0a0x4YTdrTE0wNjMxRUgyUlZzY1Q5Q2kzYURVK2JPKzI0dzRGK2Y5U05NeFQzOW1TeFpmWXlMWHlqSGdWeE93QjZuRW5IUUcxSjdCRldHa1QgbXJtLWVhc3R1czEta2V5</public-key>
+              <type>
+                <dhcp-client>
+                  <send-hostname>yes</send-hostname>
+                  <send-client-id>no</send-client-id>
+                  <accept-dhcp-hostname>yes</accept-dhcp-hostname>
+                  <accept-dhcp-domain>no</accept-dhcp-domain>
+                </dhcp-client>
+              </type>
+              <dns-primary>8.8.8.8</dns-primary>
+              <dns-secondary>4.2.2.2</dns-secondary>
+              <panorama-server>74.97.22.10</panorama-server>
+              <vm-auth-key>700903839607970</vm-auth-key>
+              <dgname>aws-gwlb</dgname>
+              <tplname>aws-gwlb_stack</tplname>
+            </initcfg>
+          </management>
+        </setting>
+      </deviceconfig>
+    </entry>
+  </devices>
+  <mgt-config>
+    <users>
+      <entry name="paloalto">
+        <permissions>
+          <role-based>
+            <superuser>yes</superuser>
+          </role-based>
+        </permissions>
+        <phash>$1$jbcoesvb$.EH/xrPxhc9hZhnMS/N/o.</phash>
+      </entry>
+      <entry name="admin">
+        <phash>*</phash>
+        <permissions>
+          <role-based>
+            <superuser>yes</superuser>
+          </role-based>
+        </permissions>
+        <public-key>c3NoLXJzYSBBQUFBQjNOemFDMXljMkVBQUFBREFRQUJBQUFCQVFDcG9tWXUwNjNjQ2ViamNpd2R3czRyNjluUWNDcXoyQkkvMHR4WjA4RElzQkw3WFNqUmlSRCtvU3pDN1E4bTFOZ1dFcTN5ajRJTlI4Sm01WnZjcDJpRmVCbWdXTmZWc2hFQ1FwU2lMTmJXMFE5L05NRkNiZG9WandRUFhhRmhHTFQ1M2RiR3BzUFc4bE44NnRJam01cCsrYlR5T2tuUzFSUlJMWnNoYjZpSXRxbXZoRVdNRnZ4NG1CdnVxTHVqSHRaN1JhSksveTAxUkxGMXZCRE1aN01mbnVObGgwVXM1cTIwT2k0NjlLNzBrbi81bnF4YzZIWGpPRnRiYUZtUnhwK0FXbGs0a0x4YTdrTE0wNjMxRUgyUlZzY1Q5Q2kzYURVK2JPKzI0dzRGK2Y5U05NeFQzOW1TeFpmWXlMWHlqSGdWeE93QjZuRW5IUUcxSjdCRldHa1QgbXJtLWVhc3R1czEta2V5</public-key>
+      </entry>
+    </users>
+    <password-complexity>
+      <enabled>yes</enabled>
+      <minimum-length>8</minimum-length>
+    </password-complexity>
+  </mgt-config>
+  <shared>
+    <application/>
+    <application-group/>
+    <service/>
+    <service-group/>
+    <botnet>
+      <configuration>
+        <http>
+          <dynamic-dns>
+            <enabled>yes</enabled>
+            <threshold>5</threshold>
+          </dynamic-dns>
+          <malware-sites>
+            <enabled>yes</enabled>
+            <threshold>5</threshold>
+          </malware-sites>
+          <recent-domains>
+            <enabled>yes</enabled>
+            <threshold>5</threshold>
+          </recent-domains>
+          <ip-domains>
+            <enabled>yes</enabled>
+            <threshold>10</threshold>
+          </ip-domains>
+          <executables-from-unknown-sites>
+            <enabled>yes</enabled>
+            <threshold>5</threshold>
+          </executables-from-unknown-sites>
+        </http>
+        <other-applications>
+          <irc>yes</irc>
+        </other-applications>
+        <unknown-applications>
+          <unknown-tcp>
+            <destinations-per-hour>10</destinations-per-hour>
+            <sessions-per-hour>10</sessions-per-hour>
+            <session-length>
+              <maximum-bytes>100</maximum-bytes>
+              <minimum-bytes>50</minimum-bytes>
+            </session-length>
+          </unknown-tcp>
+          <unknown-udp>
+            <destinations-per-hour>10</destinations-per-hour>
+            <sessions-per-hour>10</sessions-per-hour>
+            <session-length>
+              <maximum-bytes>100</maximum-bytes>
+              <minimum-bytes>50</minimum-bytes>
+            </session-length>
+          </unknown-udp>
+        </unknown-applications>
+      </configuration>
+      <report>
+        <topn>100</topn>
+        <scheduled>yes</scheduled>
+      </report>
+    </botnet>
+    <log-settings>
+      <profiles>
+        <entry name="default">
+          <match-list>
+            <entry name="all-auth">
+              <log-type>auth</log-type>
+              <filter>All Logs</filter>
+              <send-to-panorama>yes</send-to-panorama>
+              <quarantine>no</quarantine>
+            </entry>
+            <entry name="all-data">
+              <log-type>data</log-type>
+              <filter>All Logs</filter>
+              <send-to-panorama>yes</send-to-panorama>
+              <quarantine>no</quarantine>
+            </entry>
+            <entry name="all-decryption">
+              <log-type>decryption</log-type>
+              <filter>All Logs</filter>
+              <send-to-panorama>yes</send-to-panorama>
+              <quarantine>no</quarantine>
+            </entry>
+            <entry name="all-threat">
+              <log-type>threat</log-type>
+              <filter>All Logs</filter>
+              <send-to-panorama>yes</send-to-panorama>
+              <quarantine>no</quarantine>
+            </entry>
+            <entry name="all-traffic">
+              <log-type>traffic</log-type>
+              <filter>All Logs</filter>
+              <send-to-panorama>yes</send-to-panorama>
+              <quarantine>no</quarantine>
+            </entry>
+            <entry name="all-tunnel">
+              <log-type>tunnel</log-type>
+              <filter>All Logs</filter>
+              <send-to-panorama>yes</send-to-panorama>
+              <quarantine>no</quarantine>
+            </entry>
+            <entry name="all-url">
+              <log-type>url</log-type>
+              <filter>All Logs</filter>
+              <send-to-panorama>yes</send-to-panorama>
+              <quarantine>no</quarantine>
+            </entry>
+            <entry name="all-wildfire">
+              <log-type>wildfire</log-type>
+              <filter>All Logs</filter>
+              <send-to-panorama>yes</send-to-panorama>
+              <quarantine>no</quarantine>
+            </entry>
+          </match-list>
+        </entry>
+      </profiles>
+    </log-settings>
+  </shared>
+</config>
