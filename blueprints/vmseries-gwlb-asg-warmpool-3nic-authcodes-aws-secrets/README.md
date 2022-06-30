@@ -49,7 +49,10 @@ This blueprint builds an AWS Autoscaling Group with Warmpool of VM Series NGFW f
 - AWS Secrets
   - Panorama secrets
   - VM Series User Data
-- Lambda script for lifecycle hooks
+- Lambda script for lifecycle hooks'
+- EventBridge Rules to Launch Lambda
+- Lambda Permsission for EventBridge
+- IAM Policy for Lambda
 - Instance Profile for Launch Template and related policy
 - Launch Template for ASG
 - Placement Group
@@ -66,6 +69,14 @@ This blueprint builds an AWS Autoscaling Group with Warmpool of VM Series NGFW f
 - Collector Group Name
 - Authcode for VM Series with sufficient capacity to provision at least maximum size of ASG
 - public SSH key-pair name in AWS region that ASG will be deployed
+
+# comments
+- zero out ASG instances before terraform destroy
+- make sure AWS account has EIP limit to support 4 (3 sec VPC NAT-GW, 1 spoke2 VM) + maximum ASG size
+- ELB health checks will eventually terminate instances if commit-all from Panorama fails.
+- Health check test both dataplane interfaces via SNAT/DNAT policy to TCP port 8 that redirects to metadata AWS web server
+- GWLB will not send traffic to any VM Series unless Health Check validates dataplane.  This should avoid blackholing traffic associated with management profile based health checks.
+- AWS Secrets reference in user-data of launch template allow for vm-auth-key, Panorama API, device registration PIN ID/Value to be rotated
 
 ## Support Policy
 This solution is released under an as-is, best effort, support policy. These scripts should be seen as community supported and Palo Alto Networks will contribute our expertise as and when possible. We do not provide technical support or help in using or troubleshooting the components of the project through our normal support options such as Palo Alto Networks support teams, or ASC (Authorized Support Centers) partners and backline support options. The underlying product used (the VM-Series firewall) by the scripts or templates are still supported, but the support is only for the product functionality and not for help in deploying or using the template or script itself.
