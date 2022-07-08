@@ -1,0 +1,172 @@
+set device-group DG_GWLB-demo post-rulebase nat rules SNAT_default source-translation dynamic-ip-and-port interface-address interface ethernet1/2
+set device-group DG_GWLB-demo post-rulebase nat rules SNAT_default target negate no
+set device-group DG_GWLB-demo post-rulebase nat rules SNAT_default to Z_external
+set device-group DG_GWLB-demo post-rulebase nat rules SNAT_default from Z_internal
+set device-group DG_GWLB-demo post-rulebase nat rules SNAT_default source any
+set device-group DG_GWLB-demo post-rulebase nat rules SNAT_default destination any
+set device-group DG_GWLB-demo post-rulebase nat rules SNAT_default service any
+set device-group DG_GWLB-demo post-rulebase nat rules SNAT_default to-interface ethernet1/2
+
+set device-group DG_GWLB-demo pre-rulebase nat rules GWLB_overlay_healthcheck source-translation dynamic-ip-and-port interface-address interface ethernet1/2
+set device-group DG_GWLB-demo pre-rulebase nat rules GWLB_overlay_healthcheck target negate no
+set device-group DG_GWLB-demo pre-rulebase nat rules GWLB_overlay_healthcheck to Z_internal
+set device-group DG_GWLB-demo pre-rulebase nat rules GWLB_overlay_healthcheck from Z_internal
+set device-group DG_GWLB-demo pre-rulebase nat rules GWLB_overlay_healthcheck source net_inspection_vpc
+set device-group DG_GWLB-demo pre-rulebase nat rules GWLB_overlay_healthcheck destination net_inspection_vpc
+set device-group DG_GWLB-demo pre-rulebase nat rules GWLB_overlay_healthcheck service TCP-8
+set device-group DG_GWLB-demo pre-rulebase nat rules GWLB_overlay_healthcheck to-interface ethernet1/1
+set device-group DG_GWLB-demo pre-rulebase nat rules GWLB_overlay_healthcheck dynamic-destination-translation distribution round-robin
+set device-group DG_GWLB-demo pre-rulebase nat rules GWLB_overlay_healthcheck dynamic-destination-translation translated-address 169.254.169.254
+set device-group DG_GWLB-demo pre-rulebase nat rules GWLB_overlay_healthcheck dynamic-destination-translation translated-port 80
+
+
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" target negate no
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" to any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" from any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" source AG_RFC1918
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" destination [ panw-bulletproof-ip-list panw-highrisk-ip-list panw-known-ip-list panw-torexit-ip-list ]
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" source-user any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" category any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" application any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" service any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" source-hip any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" destination-hip any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" action deny
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" rule-type universal
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" negate-destination no
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" log-setting default
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny EDL" disabled yes
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" target negate no
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" to any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" from any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" source AG_RFC1918
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" destination [ CN RU ]
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" source-user any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" category any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" application any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" service any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" source-hip any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" destination-hip any
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" action deny
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" rule-type universal
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" negate-destination no
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" log-setting default
+set device-group DG_GWLB-Common pre-rulebase security rules "Oubound Deny Geo" disabled yes
+
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" target negate no
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" to any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" from any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" source net_inspection_vpc
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" destination net_inspection_vpc
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" source-user any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" category any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" application any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" service TCP-8
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" source-hip any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" destination-hip any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" action allow
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" rule-type universal
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" negate-destination no
+set device-group DG_GWLB-Common post-rulebase security rules "Internal GWLB Health Check" log-setting default
+
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" target negate no
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" to any
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" from any
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" source AG_RFC1918
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" destination AG_spoke1_alb
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" source-user any
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" category any
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" application [ ssl web-browsing ]
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" service [ service-http service-https ]
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" source-hip any
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" destination-hip any
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" action allow
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" rule-type universal
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" negate-destination no
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" log-setting default
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" profile-setting profiles virus default
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" profile-setting profiles vulnerability default
+set device-group DG_GWLB-Common post-rulebase security rules "External Spoke1 ALB" negate-source yes
+
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" profile-setting profiles virus default
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" profile-setting profiles spyware default
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" profile-setting profiles vulnerability default
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" target negate no
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" to any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" from any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" source AG_RFC1918
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" destination AG_RFC1918
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" source-user any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" category any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" application any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" service any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" source-hip any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" destination-hip any
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" action allow
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" rule-type universal
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" negate-destination no
+set device-group DG_GWLB-Common post-rulebase security rules "Internal Allow" log-setting default
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" profile-setting profiles url-filtering default
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" profile-setting profiles virus default
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" profile-setting profiles spyware default
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" profile-setting profiles vulnerability default
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" target negate no
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" to any
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" from any
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" source AG_RFC1918
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" destination AG_RFC1918
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" source-user any
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" category any
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" application any
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" service any
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" source-hip any
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" destination-hip any
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" action allow
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" rule-type universal
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" negate-destination yes
+set device-group DG_GWLB-Common post-rulebase security rules "Outbound Allow" log-setting default
+
+
+set device-group DG_GWLB-Common post-rulebase default-security-rules rules intrazone-default action deny
+set device-group DG_GWLB-Common post-rulebase default-security-rules rules intrazone-default log-start no
+set device-group DG_GWLB-Common post-rulebase default-security-rules rules intrazone-default log-end yes
+set device-group DG_GWLB-Common post-rulebase default-security-rules rules intrazone-default log-setting default
+set device-group DG_GWLB-Common post-rulebase default-security-rules rules interzone-default action deny
+set device-group DG_GWLB-Common post-rulebase default-security-rules rules interzone-default log-start no
+set device-group DG_GWLB-Common post-rulebase default-security-rules rules interzone-default log-end yes
+set device-group DG_GWLB-Common post-rulebase default-security-rules rules interzone-default log-setting default
+
+
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-traffic log-type traffic
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-traffic filter "All Logs"
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-traffic send-to-panorama yes
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-traffic quarantine no
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-data log-type data
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-data filter "All Logs"
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-data send-to-panorama yes
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-data quarantine no
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-decryption log-type decryption
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-decryption filter "All Logs"
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-decryption send-to-panorama yes
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-decryption quarantine no
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-threat log-type threat
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-threat filter "All Logs"
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-threat send-to-panorama yes
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-threat quarantine no
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-url log-type url
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-url filter "All Logs"
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-url send-to-panorama yes
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-url quarantine no
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-wf log-type wildfire
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-wf filter "All Logs"
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-wf send-to-panorama yes
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-wf quarantine no
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-tunnel log-type tunnel
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-tunnel filter "All Logs"
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-tunnel send-to-panorama yes
+set device-group DG_GWLB-Common log-settings profiles default match-list LFP-tunnel quarantine no
+
+
+
+
+
