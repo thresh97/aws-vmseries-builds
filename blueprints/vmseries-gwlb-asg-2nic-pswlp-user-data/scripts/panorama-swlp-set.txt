@@ -1,0 +1,5 @@
+set plugins sw_fw_license bootstrap-definition BD_GWLB-demo authcode #D12341234
+set plugins sw_fw_license license-manager LM_GWLB-demo device-group DG_GWLB-demo
+set plugins sw_fw_license license-manager LM_GWLB-demo template-stack TS_GWLB-demo
+set plugins sw_fw_license license-manager LM_GWLB-demo bootstrap-definition BD_GWLB-demo
+set plugins sw_fw_license license-manager LM_GWLB-demo auto-deactivate 1

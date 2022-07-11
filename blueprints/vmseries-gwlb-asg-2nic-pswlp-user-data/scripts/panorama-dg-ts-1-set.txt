@@ -1,0 +1,80 @@
+delete device-group DG_GWLB-Common 
+delete device-group DG_GWLB-demo
+
+delete template-stack TS_GWLB-demo
+delete template T_GWLB-demo 
+delete template T_GWLB-Common 
+
+
+set template T_GWLB-demo config  network profiles interface-management-profile MP-http http yes
+set template T_GWLB-demo config  network profiles interface-management-profile MP-http ping yes
+set template T_GWLB-demo config  network interface ethernet ethernet1/1 layer3 ndp-proxy enabled no
+set template T_GWLB-demo config  network interface ethernet ethernet1/1 layer3 sdwan-link-settings upstream-nat enable no
+set template T_GWLB-demo config  network interface ethernet ethernet1/1 layer3 sdwan-link-settings upstream-nat static-ip 
+set template T_GWLB-demo config  network interface ethernet ethernet1/1 layer3 sdwan-link-settings enable no
+set template T_GWLB-demo config  network interface ethernet ethernet1/1 layer3 dhcp-client create-default-route yes 
+set template T_GWLB-demo config  network interface ethernet ethernet1/1 layer3 interface-management-profile MP-http
+set template T_GWLB-demo config  network interface ethernet ethernet1/1 layer3 lldp enable no
+
+set template T_GWLB-demo config  vsys vsys1 import network interface [ ethernet1/1 ]
+set template T_GWLB-demo config  vsys vsys1 zone Z_data network layer3 ethernet1/1
+set template T_GWLB-demo settings default-vsys vsys1
+set template T_GWLB-demo config  network virtual-router VR_default ecmp algorithm ip-modulo 
+set template T_GWLB-demo config  network virtual-router VR_default protocol bgp enable no
+set template T_GWLB-demo config  network virtual-router VR_default protocol bgp routing-options graceful-restart enable yes
+set template T_GWLB-demo config  network virtual-router VR_default protocol rip enable no
+set template T_GWLB-demo config  network virtual-router VR_default protocol ospf enable no
+set template T_GWLB-demo config  network virtual-router VR_default protocol ospfv3 enable no
+set template T_GWLB-demo config  network virtual-router VR_default interface [ ethernet1/1 ]
+
+set template T_GWLB-demo config  deviceconfig setting logging logging-service-forwarding logging-service-regions americas
+set template T_GWLB-demo config  deviceconfig setting logging logging-service-forwarding enable no
+set template T_GWLB-demo config  deviceconfig setting logging logging-service-forwarding enable-duplicate-logging no
+set template T_GWLB-demo config  deviceconfig setting logging enhanced-application-logging enable no
+set template T_GWLB-demo config  deviceconfig plugins vm_series aws-cloudwatch name VMseriesGWLB
+set template T_GWLB-demo config  deviceconfig plugins vm_series aws-cloudwatch enabled yes
+set template T_GWLB-demo config  deviceconfig plugins vm_series aws-cloudwatch timeout 1
+set template T_GWLB-demo config shared log-settings system match-list LS-System filter "All Logs"
+set template T_GWLB-demo config shared log-settings system match-list LS-System send-to-panorama yes
+set template T_GWLB-demo config shared log-settings config match-list LS-Config filter "All Logs"
+set template T_GWLB-demo config shared log-settings config match-list LS-Config send-to-panorama yes
+set template T_GWLB-demo config shared log-settings userid match-list LS-User-ID filter "All Logs"
+set template T_GWLB-demo config shared log-settings userid match-list LS-User-ID send-to-panorama yes
+set template T_GWLB-demo config shared log-settings iptag match-list LS-IP-Tag filter "All Logs"
+
+set template T_GWLB-Common config  vsys vsys1 
+set template T_GWLB-Common settings default-vsys vsys1
+
+
+set device-group DG_GWLB-Common service TCP-8 protocol tcp port 8
+set device-group DG_GWLB-Common service TCP-8 protocol tcp override no 
+set device-group DG_GWLB-Common address net_inspection_vpc ip-netmask 10.100.0.0/16
+set device-group DG_GWLB-Common address net_spoke1_alb_az1 ip-netmask 10.101.1.0/28
+set device-group DG_GWLB-Common address net_spoke1_alb_az2 ip-netmask 10.101.1.16/28
+set device-group DG_GWLB-Common address-group AG_spoke1_alb static [ net_spoke1_alb_az1 net_spoke1_alb_az2 ]
+
+set device-group DG_GWLB-Common address net_10.0.0.0_8 ip-netmask 10.0.0.0/8
+set device-group DG_GWLB-Common address net_10.0.0.0_8 disable-override no
+set device-group DG_GWLB-Common address net_172.16.0.0_12 ip-netmask 172.16.0.0/12
+set device-group DG_GWLB-Common address net_172.16.0.0_12 disable-override no
+set device-group DG_GWLB-Common address net_192.168.0.0_16 ip-netmask 192.168.0.0/16
+set device-group DG_GWLB-Common address net_192.168.0.0_16 disable-override no
+set device-group DG_GWLB-Common address-group AG_RFC1918 static [ net_10.0.0.0_8 net_172.16.0.0_12 net_192.168.0.0_16 ]
+set device-group DG_GWLB-Common address-group AG_RFC1918 disable-override no
+
+set template-stack TS_GWLB-demo user-group-source 
+set template-stack TS_GWLB-demo templates [ T_GWLB-demo T_GWLB-Common ]
+set template-stack TS_GWLB-demo settings default-vsys vsys1
+set template-stack TS_GWLB-demo config devices localhost.localdomain deviceconfig setting logging logging-service-forwarding enable yes 
+set template-stack TS_GWLB-demo auto-push-on-1st-conn yes
+
+
+set device-group DG_GWLB-demo reference-templates TS_GWLB-demo
+
+exit
+request move-dg DG_GWLB-demo new-parent-dg DG_GWLB-Common
+configure
+commit
+
+
+
