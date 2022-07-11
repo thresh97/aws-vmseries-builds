@@ -16,30 +16,11 @@ resource "aws_lb_target_group" "gwlb" {
 
   health_check {
     port = 80
-    protocol = "HTTP"
-    timeout = 5
-    interval = 10
+    protocol = "TCP"
+    interval = 5
     unhealthy_threshold = 3
-    matcher = 200-399
   }
 }
-
-/*
-resource "aws_lb_target_group_attachment" "az1" {
-  count            = var.fw_count_az1
-  target_group_arn = aws_lb_target_group.gwlb.arn
-  target_id        = element(module.fw_az1.instance_id, count.index)
-  port             = 6081
-}
-
-resource "aws_lb_target_group_attachment" "az2" {
-  count            = var.fw_count_az2
-  target_group_arn = aws_lb_target_group.gwlb.arn
-  target_id        = element(module.fw_az2.instance_id, count.index)
-  port             = 6081
-}
-*/
-
 resource "aws_vpc_endpoint_service" "gwlb" {
   acceptance_required        = false
   allowed_principals         = [data.aws_caller_identity.current.arn]
@@ -48,8 +29,8 @@ resource "aws_vpc_endpoint_service" "gwlb" {
   tags = {
     Name = "${random_id.deployment_id.hex}_endpoint-service"
   }
-}
 
+}
 resource "aws_vpc_endpoint" "az1" {
   service_name      = aws_vpc_endpoint_service.gwlb.service_name
   subnet_ids        = [module.vmseries_subnets.subnet_ids["gwlbe-az1"]]

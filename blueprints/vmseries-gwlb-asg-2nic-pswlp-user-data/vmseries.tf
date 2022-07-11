@@ -187,10 +187,9 @@ resource "aws_launch_template" "vmseries_byol" {
 resource "aws_placement_group" "placement_group_spread" {
   name = "spread"
   strategy = "spread"
+  spread_level = "rack"
 }
 
-# need to build dependency to order destroy for BYOL.  Destroy does not trigger lifecycle hook for terminate with deactivate
-# work around would be to adjust size to 0 
 resource "aws_autoscaling_group" "vmseries_byol_asg" {
   name                      = "${random_id.deployment_id.hex}_byol_asg"
   max_size                  = var.asg_max
@@ -229,6 +228,11 @@ resource "aws_autoscaling_group" "vmseries_byol_asg" {
   }
 
   target_group_arns = [ aws_lb_target_group.gwlb.id ]
+
+  lifecycle {
+    ignore_changes = [ desired_capacity, ]
+
+  }
 
 }
 

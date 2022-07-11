@@ -20,10 +20,10 @@ cloudwatch_target_value="20"
 # ASG sizing
 asg_min="2"
 asg_max="2"
-asg_desired="2"
+asg_desired="1"
 
 # Existing AWS SSH Key Name
-key_name = "pan-lab-mharms"
+key_name = "pan-lab"
 
 # hostname prefix used in launch template
 fw_prefix             = "vmseries-gwlb-asg"
@@ -33,7 +33,7 @@ fw_size               = "m5.large"
 
 # Minimum subnets for three AZ GWLB deployment
 # AWS ASG Launch Template cannot launch instances in multiple subnets (dataplane and mgmt must be in same subnet).  
-# Otherwise, must use Lifecycle hooks (launch/terminate)to manage second (mgmt) and third (egress/overlay routing) ENIs .
+# Otherwise, must use Lifecycle hook (launch) to manage second (mgmt) 
  
 fw_vpc_cidr           = "10.100.0.0/16"
 fw_cidr_natgw_az1     = "10.100.2.0/28"

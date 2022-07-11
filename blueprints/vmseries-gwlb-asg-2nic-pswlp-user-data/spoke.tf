@@ -343,21 +343,6 @@ resource "aws_lb_listener" "spoke1" {
     target_group_arn = aws_lb_target_group.spoke1.arn
   }
 }
-
-/*
-resource "aws_lb_listener" "spoke1-https" {
-  load_balancer_arn = aws_lb.spoke1.arn
-  port              = "443"
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = "${var.spoke1_acm_arn}"
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.spoke1.arn
-  }
-}
-*/
-
 output "SPOKE1-ALB" {
   value = "http://${aws_lb.spoke1.dns_name}"
 }
