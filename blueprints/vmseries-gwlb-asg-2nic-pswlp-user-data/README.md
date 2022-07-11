@@ -4,15 +4,15 @@
 This blueprint builds AWS Autoscaling Group of VM Series NGFW firewalls integrated with a GWLB as simply as possible.   This is a greenfield deployment that is similar to the PAN VM Series Centralized AWS GWLB Reference Architecture with Centralized Egress and E/W Inspection via TGW and Distributed Ingress inspection.  It uses User Data for Basic instance meta-data based bootstrapping.  It licenses VM Series with the Panorama Software Licensing Plugin.  This is intended for demo, non-prod, and/or sandbox use.  It is not production grade.
 
 - 2 NICs
- - ENI0 data-plane in same subnet as GWLB and GWLBE per AZ
- - ENI1 management in same subnet as GWLB and GWLBE per AZ.  Managment Interface swap to allow registration in GWLB Target Group by Instance ID from ASG Launch Tempalte.
+  - ENI0 data-plane in same subnet as GWLB and GWLBE per AZ
+  - ENI1 management in same subnet as GWLB and GWLBE per AZ.  Managment Interface swap to allow registration in GWLB Target Group by Instance ID from ASG Launch Tempalte.
 - Licensed and delicense via Panorama SW Licensing plugin
- - Plugin will deactivate licenses and cleanup VM Series devices that are disconnected.
+  - Plugin will deactivate licenses and cleanup VM Series devices that are disconnected.
 - Bootstrapped via User Data exclusively.  
 - No lifecycle hooks for Lambda functions.  ENI0 and ENI1 must be in the same subnet.
 - Basic Bootstrapping.  No S3 Buckets.  
- - Must use custom AMI to use PAN-OS version not in Marketplace.
- - Must use Panorama 10.2 content auto-push if policies in Device Group reference dynamic content updates.
+  - Must use custom AMI to use PAN-OS version not in Marketplace.
+  - Must use Panorama 10.2 content auto-push if policies in Device Group reference dynamic content updates.
 
 # Infrastructure Components
 - TGW
