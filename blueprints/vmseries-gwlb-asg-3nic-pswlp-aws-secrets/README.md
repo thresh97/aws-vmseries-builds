@@ -2,20 +2,19 @@
 
 
 ### Overview
-This blueprint builds an AWS Autoscaling Group with Warmpool of VM Series NGFW firewalls integrated with a GWLB.  This is a greenfield deployment that is similar to the PAN VM Series Centralized AWS GWLB Reference Architecture with Centralized Egress and E/W Inspection via TGW and Distributed Ingress inspection.  It uses AWS Secrets for Basic instance meta-data based bootstrapping.  It also uses two dataplane interfaces with the optional overlay routing functionality of the GWLB VM series integration.  It is licensed via Panorama SW Licensing Plugin.  This is intended for demo, non-prod, and/or sandbox use.  It is not production grade.
+This blueprint builds an AWS Autoscaling Group with VM Series NGFW firewalls integrated with a GWLB.  This is a greenfield deployment that is similar to the PAN VM Series Centralized AWS GWLB Reference Architecture with Centralized Egress and E/W Inspection via TGW and Distributed Ingress inspection.  It uses AWS Secrets for Basic instance meta-data based bootstrapping.  It also uses two dataplane interfaces for use with the optional overlay routing functionality of the GWLB VM series integration.  It is licensed via Panorama SW Licensing Plugin.  It is delicensed via Terminate Lambda function Lifecycle Hook.   This is intended for demo, non-prod, and/or sandbox use.  It is not production grade.
 
 - 3 NICs per VM Series EC2 Instance
   - Managment Interface swap to allow registration in GWLB Target Group by Instance ID from ASG Launch Template.
   - ENI0 data-plane and ENI1 are in the same subnet per instance.  This is an AWS ASG Launch Template constraint.
-  - ENI2 in NAT-GW subnet.  Added via Lifecycle Lambda Function.
+  - ENI2 in NAT-GW subnet.  Added via Launch Lifecycle Hook by Lambda Function.
 - GWLB, GWLBE, VM Series ENI0 and ENI1 are all in the same subnet per AZ.
-- Licensed via Panorama SW Licensing plugin
-- Delicensed via Lifecycle Lambda to Panorama XML API
-  - Plugin is not used to deactivate licenses based on disconnected timeout.
+- Licensed with Panorama SW Licensing plugin
+- Delicensed with Lambda Function to Panorama XML API via Terminate Lifecycle Hook.
+  - SW Licensing Plugin is not used to deactivate licenses based on disconnected timeout.
 - Basic Bootstrapping via AWS Secrets
 - No S3 Buckets.  
   - Must use custom AMI to use PAN-OS version not in Marketplace.
-  - Must use Panorama 10.2 content auto-push if policies in Device Group reference dynamic content updates (PANW EDL).
 - Using ELB Health Checks on ASG will terminate instances that do not successfully complete Licensing and Commit-All of DG and TS from Panorama
 - VM Series cannot be healthy in GWLB Target Group without successful commit of TS from Panorama
 - Target Tracking autoscaling policy simplifies configuration and allows multiple instance launch per scale-out event if supported by licensing and ASG max_size.
