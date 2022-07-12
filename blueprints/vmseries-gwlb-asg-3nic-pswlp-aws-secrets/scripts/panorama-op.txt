@@ -1,0 +1,14 @@
+request anti-virus upgrade check 
+request anti-virus upgrade download latest 
+request anti-virus upgrade install version latest 
+request content upgrade check 
+request content upgrade download latest 
+request content upgrade install version latest 
+
+request plugins check 
+request plugins download file vm_series-2.1.6
+request plugins install vm_series-2.1.6 
+
+request license api-key set key 1234567890123456789012345678901234567890123456789012345678901234
+request certificate fetch otp 12345678901234567890123456789012
+request bootstrap vm-auth-key generate lifetime 8760
