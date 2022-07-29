@@ -1,5 +1,5 @@
-delete device-group DG_GWLB-Common 
 delete device-group DG_GWLB-demo
+delete device-group DG_GWLB-Common 
 
 delete template-stack TS_GWLB-demo
 delete template T_GWLB-demo 

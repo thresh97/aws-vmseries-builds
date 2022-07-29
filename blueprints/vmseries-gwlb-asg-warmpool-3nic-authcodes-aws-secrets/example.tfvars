@@ -5,7 +5,7 @@ aws_profile = "pan-lab"
 region   = "us-east-2"
 # query which BYOL AMI IDs are available
 # $ aws --region us-east-2 ec2 describe-images --filters "Name=name,Values=PA-VM-AWS-10.1.*" "Name=product-code,Values=hd44w1chf26uv4p52cdynb2o"
-panos_version="10.1.5-h1"
+panos_version="10.1.6"
 
 # Target Tracking Autoscaling
 cloudwatch_namespace="VMseriesGWLB"

@@ -452,7 +452,7 @@ def cold_launch(e,iid,p1,p2,p_api_key,dg,ts):
         i+=1
         # Need Fail if - should add these
             # ERROR : LICENSE : FAIL :
-            # ERROR : LICENSE : FAIL : License Install - Failed - Failed to install license key using authcode D5756635: Deployment profile input does not have enough credits available to support this request..
+            # ERROR : LICENSE : FAIL : License Install - Failed - Failed to install license key using authcode D12341234: Deployment profile input does not have enough credits available to support this request..
             # CRITICAL : COMMIT : FAIL : \d+ : Auto-commit job failed.
         try:
             response = logs_client.get_log_events(

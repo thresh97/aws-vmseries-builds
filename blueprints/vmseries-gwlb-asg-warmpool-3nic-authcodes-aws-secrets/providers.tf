@@ -5,6 +5,7 @@ terraform {
 provider aws {
   region  = var.region
   profile = "${var.aws_profile}"
+  version = ">= 4.22.0"
 }
 
 

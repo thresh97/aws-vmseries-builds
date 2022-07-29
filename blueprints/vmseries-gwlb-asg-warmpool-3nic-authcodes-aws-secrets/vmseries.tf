@@ -213,6 +213,7 @@ resource "aws_launch_template" "vmseries_byol" {
 resource "aws_placement_group" "placement_group_spread" {
   name = "spread"
   strategy = "spread"
+  spread_level = "rack"
 }
 
 # need to build dependency to order destroy for BYOL.  Destroy does not trigger lifecycle hook for terminate with deactivate
