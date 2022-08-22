@@ -1,5 +1,4 @@
 variable "region" {}
-variable "aws_profile" {}
 
 variable "panos_version" {}
 
