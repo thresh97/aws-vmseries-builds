@@ -16,10 +16,6 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-data "template_file" "web_startup" {
-  template = file("${path.module}/scripts/cloud_init_web.yml.tpl")
-}
-
 #-----------------------------------------------------------------------------------------------
 # Create spoke1 VPC, IGW, & subnets
 resource "aws_vpc" "spoke1" {
@@ -257,7 +253,7 @@ resource "aws_instance" "spoke1_vm1" {
   ami                     = data.aws_ami.ubuntu.id
   instance_type           = var.spoke_size
   key_name                = var.key_name
-  user_data               = base64encode(data.template_file.web_startup.rendered)
+  user_data               = base64encode(file("${path.module}/scripts/cloud_init_web.yml.tpl"))
 
   root_block_device {
     delete_on_termination = "true"
@@ -280,7 +276,7 @@ resource "aws_instance" "spoke1_vm2" {
   ami                     = data.aws_ami.ubuntu.id
   instance_type           = var.spoke_size
   key_name                = var.key_name
-  user_data               = base64encode(data.template_file.web_startup.rendered)
+  user_data               = base64encode(file("${path.module}/scripts/cloud_init_web.yml.tpl"))
 
   root_block_device {
     delete_on_termination = "true"
@@ -406,7 +402,7 @@ resource "aws_route_table" "spoke2" {
   }
 
   route {
-    cidr_block = "${data.http.myip.body}/32"
+    cidr_block = "${data.http.myip.response_body}/32"
     gateway_id = aws_internet_gateway.spoke2.id
   }
 
@@ -470,7 +466,7 @@ resource "aws_instance" "spoke2_vm1" {
   instance_type           = var.spoke_size
   key_name                = var.key_name
 
-  user_data               = base64encode(data.template_file.web_startup.rendered)
+  user_data               = base64encode(file("${path.module}/scripts/cloud_init_web.yml.tpl"))
 
   root_block_device {
     delete_on_termination = "true"

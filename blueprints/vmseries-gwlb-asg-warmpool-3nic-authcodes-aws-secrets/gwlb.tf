@@ -42,7 +42,7 @@ resource "aws_lb_target_group_attachment" "az2" {
 
 resource "aws_vpc_endpoint_service" "gwlb" {
   acceptance_required        = false
-  allowed_principals         = [data.aws_caller_identity.current.arn]
+#  allowed_principals         = [data.aws_caller_identity.current.arn]
   gateway_load_balancer_arns = [aws_lb.gwlb.arn]
 
   tags = {

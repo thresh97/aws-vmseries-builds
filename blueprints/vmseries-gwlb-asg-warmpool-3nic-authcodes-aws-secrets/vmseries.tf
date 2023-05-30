@@ -146,7 +146,7 @@ resource "aws_security_group" "vmseries_data_public" {
     from_port   = "0"
     to_port     = "0"
     protocol    = "-1"
-    cidr_blocks = ["${data.http.myip.body}/32"]
+    cidr_blocks = ["${data.http.myip.response_body}/32"]
   }
 
   egress {
