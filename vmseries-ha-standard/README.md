@@ -1,6 +1,3 @@
-I have extracted the current content of the Project Documentation from the Canvas. You can copy the Markdown string below:
-
-```markdown
 # AWS VM-Series HA Architecture (Single AZ with Rack-Level Spreading)
 
 > **DISCLAIMER: FOR TEST AND DEMO USE ONLY.**
