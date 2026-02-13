@@ -129,8 +129,8 @@ Configure the SNAT policy to ensure outbound traffic uses the **Floating VIP** f
 
 ### **Routing (Virtual Router: default)**
 
-* **Default Route (0.0.0.0/0):** Interface ethernet1/3, Next Hop IP Address (Azure Subnet Gateway: 10.0.2.1).  
-* **RFC1918 (Private) Routes:** Interface ethernet1/2, Next Hop IP Address (Azure Subnet Gateway: 10.0.3.1).
+* **Default Route (0.0.0.0/0):** Interface ethernet1/3, Next Hop IP Address (AWS Subnet Gateway: 10.0.2.1).  
+* **RFC1918 (Private) Routes:** Interface ethernet1/2, Next Hop IP Address (AWS Subnet Gateway: 10.0.3.1).
 
 
 ## Finding Available Versions
