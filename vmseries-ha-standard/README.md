@@ -87,7 +87,7 @@ set deviceconfig high-availability enabled yes
 set deviceconfig setting advance-routing yes
 ```
 
-### Configuration Secondary IP High Availability
+### Configure Secondary IP High Availability
 
 ```bash
 request plugins vm_series aws ha failover-mode secondary-ip
