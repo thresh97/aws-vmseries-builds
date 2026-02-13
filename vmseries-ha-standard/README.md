@@ -53,9 +53,9 @@ Because modern AWS instances (ENA) do not support moving ENIs between running in
 set network interface ethernet ethernet1/1 ha
 set deviceconfig system hostname aws-ha-fw1
 set deviceconfig high-availability interface ha1 port management
-set deviceconfig high-availability interface ha2 ip-address 10.0.4.4
+set deviceconfig high-availability interface ha2 ip-address 10.0.5.4
 set deviceconfig high-availability interface ha2 netmask 255.255.255.0
-set deviceconfig high-availability interface ha2 gateway 10.0.4.1
+set deviceconfig high-availability interface ha2 gateway 10.0.5.1
 set deviceconfig high-availability interface ha2 port ethernet1/1
 set deviceconfig high-availability group mode active-passive 
 set deviceconfig high-availability group group-id 63
@@ -73,9 +73,9 @@ set deviceconfig setting advance-routing yes
 set network interface ethernet ethernet1/1 ha
 set deviceconfig system hostname aws-ha-fw2
 set deviceconfig high-availability interface ha1 port management
-set deviceconfig high-availability interface ha2 ip-address 10.0.4.5
+set deviceconfig high-availability interface ha2 ip-address 10.0.5.5
 set deviceconfig high-availability interface ha2 netmask 255.255.255.0
-set deviceconfig high-availability interface ha2 gateway 10.0.4.1
+set deviceconfig high-availability interface ha2 gateway 10.0.5.1
 set deviceconfig high-availability interface ha2 port ethernet1/1
 set deviceconfig high-availability group mode active-passive 
 set deviceconfig high-availability group group-id 63
