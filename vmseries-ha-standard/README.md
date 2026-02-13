@@ -158,7 +158,7 @@ aws ec2 describe-images \
 * `fw1_mgmt_ip`: Public IP for FW1 management.
 * `fw2_mgmt_ip`: Public IP for FW2 management.
 * `untrust_vip_public_ip`: Elastic IP associated with the .100 Untrust Floating VIP.
-* `linux_worker_private_ip`: Internal IP of the protected test instance.
+* `linux_worker_public_ip`: Internal IP of the protected test instance.
 
 ```
 
