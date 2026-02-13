@@ -50,32 +50,41 @@ Because modern AWS instances (ENA) do not support moving ENIs between running in
 ### Firewall 1 (Primary)
 
 ```bash
-set deviceconfig high-availability group 1 peer-ip 10.0.1.5
-set deviceconfig high-availability group 1 election-option device-priority 100
-set deviceconfig high-availability interface ha1 port management ip-address 10.0.1.4 netmask 255.255.255.0
-set deviceconfig high-availability group 1 mode active-passive
+set network interface ethernet ethernet1/1 ha
+set deviceconfig system hostname aws-ha-fw1
+set deviceconfig high-availability interface ha1 port management
+set deviceconfig high-availability interface ha2 ip-address 10.0.4.4
+set deviceconfig high-availability interface ha2 netmask 255.255.255.0
+set deviceconfig high-availability interface ha2 gateway 10.0.4.1
+set deviceconfig high-availability interface ha2 port ethernet1/1
+set deviceconfig high-availability group mode active-passive 
+set deviceconfig high-availability group group-id 63
+set deviceconfig high-availability group peer-ip 10.0.1.5
+set deviceconfig high-availability group state-synchronization enabled yes
+set deviceconfig high-availability group state-synchronization transport udp
+set deviceconfig high-availability group election-option device-priority 100
 set deviceconfig high-availability enabled yes
-
-# AWS Plugin Configuration (for Route and IP moves)
-# Replace <workload_rt_id> with the actual AWS Route Table ID from Terraform outputs
-set plugins vm_series aws vpc-ha-gateway-mapping trust-table-id <workload_rt_id> trust-interface eth2
-set plugins vm_series aws vpc-ha-gateway-mapping untrust-vip 10.0.2.100 untrust-interface eth1
-
+set deviceconfig setting advance-routing yes
 ```
 
 ### Firewall 2 (Secondary)
 
 ```bash
-set deviceconfig high-availability group 1 peer-ip 10.0.1.4
-set deviceconfig high-availability group 1 election-option device-priority 200
-set deviceconfig high-availability interface ha1 port management ip-address 10.0.1.5 netmask 255.255.255.0
-set deviceconfig high-availability group 1 mode active-passive
+set network interface ethernet ethernet1/1 ha
+set deviceconfig system hostname aws-ha-fw2
+set deviceconfig high-availability interface ha1 port management
+set deviceconfig high-availability interface ha2 ip-address 10.0.4.5
+set deviceconfig high-availability interface ha2 netmask 255.255.255.0
+set deviceconfig high-availability interface ha2 gateway 10.0.4.1
+set deviceconfig high-availability interface ha2 port ethernet1/1
+set deviceconfig high-availability group mode active-passive 
+set deviceconfig high-availability group group-id 63
+set deviceconfig high-availability group peer-ip 10.0.1.4
+set deviceconfig high-availability group state-synchronization enabled yes
+set deviceconfig high-availability group state-synchronization transport udp
+set deviceconfig high-availability group election-option device-priority 101
 set deviceconfig high-availability enabled yes
-
-# AWS Plugin Configuration
-set plugins vm_series aws vpc-ha-gateway-mapping trust-table-id <workload_rt_id> trust-interface eth2
-set plugins vm_series aws vpc-ha-gateway-mapping untrust-vip 10.0.2.100 untrust-interface eth1
-
+set deviceconfig setting advance-routing yes
 ```
 
 ## Finding Available Versions
