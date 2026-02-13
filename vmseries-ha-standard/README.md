@@ -99,6 +99,40 @@ request plugins vm_series aws ha failover-mode secondary-ip
 show plugins vm_series aws ha ips
 ```
 
+## SCM Folder Configuration**
+
+After successfully committing to your SCM Folder, ensure the following network and policy objects are configured to match the live state of the hub firewalls.
+
+**Important Note on HA (SCM 2025.r5.0):** High Availability (HA) must NOT be configured or managed within the SCM Folder as of version 2025.r5.0. This deployment utilizes the Management port for HA1 control traffic, a configuration that is currently not supported in the SCM workflow. HA settings must remain as local device configuration and should be excluded from SCM-pushed templates.
+
+### **Network Interfaces & Zones**
+
+Map the hardware interfaces to the logical zones and virtual routers.
+
+| Interface | Type | IPv4 Address(es) | Zone | Forwarding |
+| :---- | :---- | :---- | :---- | :---- |
+| ethernet1/3 | Layer3 | 10.0.2.100/24, 10.0.2.4/32, 10.0.2.5/32 | internet | lr:default |
+| ethernet1/2 | Layer3 | 10.0.3.100/24, 10.0.3.4/32, 10.0.3.5/32 | local | lr:default |
+
+### **NAT Policy**
+
+Configure the SNAT policy to ensure outbound traffic uses the **Floating VIP** for consistent identity during failover.
+
+**Policy Name:** SNAT Egress
+
+* **Source Zone:** local  
+* **Destination Zone:** internet  
+* **Destination Interface:** ethernet1/1  
+* **Service:** any  
+* **Source Translation:** Dynamic IP and Port  
+* **Translated Address:** Interface Address \-\> ethernet1/1 \-\> 10.0.2.100
+
+### **Routing (Virtual Router: default)**
+
+* **Default Route (0.0.0.0/0):** Interface ethernet1/3, Next Hop IP Address (Azure Subnet Gateway: 10.0.2.1).  
+* **RFC1918 (Private) Routes:** Interface ethernet1/2, Next Hop IP Address (Azure Subnet Gateway: 10.0.3.1).
+
+
 ## Finding Available Versions
 
 To find the available VM-Series BYOL AMI versions in your target region:
