@@ -87,6 +87,18 @@ set deviceconfig high-availability enabled yes
 set deviceconfig setting advance-routing yes
 ```
 
+### Configuration Secondary IP High Availability
+
+```bash
+request plugins vm_series aws ha failover-mode secondary-ip
+```
+
+### Verify Secondary IP High Availability
+
+```bash
+show plugins vm_series aws ha ips
+```
+
 ## Finding Available Versions
 
 To find the available VM-Series BYOL AMI versions in your target region:
