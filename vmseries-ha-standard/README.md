@@ -99,7 +99,7 @@ request plugins vm_series aws ha failover-mode secondary-ip
 show plugins vm_series aws ha ips
 ```
 
-## SCM Folder Configuration**
+## SCM Folder Configuration
 
 After successfully committing to your SCM Folder, ensure the following network and policy objects are configured to match the live state of the hub firewalls.
 
