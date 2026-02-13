@@ -46,7 +46,7 @@ variable "vmseries_instance_type" {
 variable "panos_version" {
   type        = string
   description = "PAN-OS Version to search for in Marketplace"
-  default     = "12.1.4"
+  default     = "11.1.0"
 }
 
 variable "vmseries_bootstrap_custom_1" {
@@ -186,11 +186,23 @@ resource "aws_route_table_association" "untrust_assoc" {
 # Workload Route Table (Transit via Firewall)
 resource "aws_route_table" "workload" {
   vpc_id = aws_vpc.this.id
+
   # 0/0 Route pointing to primary FW1 trust ENI
   route {
     cidr_block           = "0.0.0.0/0"
     network_interface_id = aws_network_interface.fw1_trust.id
   }
+
+  # Specific routes for management CIDRs to go through IGW
+  # This ensures direct return traffic for administrative access
+  dynamic "route" {
+    for_each = toset(var.allowed_mgmt_cidrs)
+    content {
+      cidr_block = route.value
+      gateway_id = aws_internet_gateway.igw.id
+    }
+  }
+
   tags = { Name = "pavm-workload-rt" }
 }
 
@@ -223,6 +235,12 @@ resource "aws_security_group" "mgmt_sg" {
     to_port     = 0
     protocol    = "icmp"
     cidr_blocks = var.allowed_mgmt_cidrs
+  }
+  ingress {
+    from_port   = 0 
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [ var.vpc_cidr ]
   }
   egress {
     from_port   = 0
@@ -366,7 +384,8 @@ resource "aws_network_interface" "fw1_untrust" {
   source_dest_check = false
   description       = "fw1-untrust"
   # Primary IP .4, Secondary VIP .100
-  private_ips = [
+  private_ip_list_enabled = true
+  private_ip_list = [
     cidrhost(aws_subnet.untrust.cidr_block, 4),
     cidrhost(aws_subnet.untrust.cidr_block, 100)
   ]
@@ -378,7 +397,8 @@ resource "aws_network_interface" "fw1_trust" {
   source_dest_check = false
   description       = "fw1-trust"
   # Primary IP .4, Secondary VIP .100
-  private_ips = [
+  private_ip_list_enabled = true
+  private_ip_list = [
     cidrhost(aws_subnet.trust.cidr_block, 4),
     cidrhost(aws_subnet.trust.cidr_block, 100)
   ]
@@ -432,6 +452,11 @@ resource "aws_network_interface" "fw2_ha" {
 # 2. Interface (ENI) moving is not supported on ENA instances.
 
 # --- ELASTIC IPs ---
+resource "aws_eip" "linux_worker_eip" {
+  domain            = "vpc"
+  instance = aws_instance.linux_worker.id
+}
+
 
 resource "aws_eip" "fw1_mgmt_eip" {
   domain            = "vpc"
@@ -472,7 +497,7 @@ resource "aws_instance" "fw1" {
   }
 
   network_interface {
-    device_index         = 1
+    device_index         = 3
     network_interface_id = aws_network_interface.fw1_untrust.id
   }
 
@@ -482,7 +507,7 @@ resource "aws_instance" "fw1" {
   }
 
   network_interface {
-    device_index         = 3
+    device_index         = 1
     network_interface_id = aws_network_interface.fw1_ha.id
   }
 
@@ -509,7 +534,7 @@ resource "aws_instance" "fw2" {
   }
 
   network_interface {
-    device_index         = 1
+    device_index         = 3
     network_interface_id = aws_network_interface.fw2_untrust.id
   }
 
@@ -519,7 +544,7 @@ resource "aws_instance" "fw2" {
   }
 
   network_interface {
-    device_index         = 3
+    device_index         = 1
     network_interface_id = aws_network_interface.fw2_ha.id
   }
 
@@ -533,7 +558,7 @@ resource "aws_instance" "linux_worker" {
   instance_type = "t3.micro"
   key_name      = var.ssh_key_name
   subnet_id     = aws_subnet.workload.id
-  vpc_security_group_ids = [aws_security_group.trust_sg.id]
+  vpc_security_group_ids = [aws_security_group.mgmt_sg.id]
 
   user_data = var.linux_user_data_base64 != "" ? base64decode(var.linux_user_data_base64) : <<-EOF
     #!/bin/bash
@@ -561,6 +586,6 @@ output "untrust_vip_public_ip" {
   value = aws_eip.untrust_vip_eip.public_ip
 }
 
-output "linux_worker_private_ip" {
-  value = aws_instance.linux_worker.private_ip
+output "linux_worker_public_ip" {
+  value = aws_eip.linux_worker_eip.public_ip
 }
